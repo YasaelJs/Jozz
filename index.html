@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Para mi amor</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:black;
+    overflow:hidden;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+/* ESTRELLAS */
+body::before{
+    content:"";
+    position:absolute;
+    width:200%;
+    height:200%;
+    background:radial-gradient(white 1px, transparent 1px);
+    background-size:50px 50px;
+    animation:moverEstrellas 60s linear infinite;
+    opacity:0.2;
+}
+
+@keyframes moverEstrellas{
+    from{transform:translate(0,0);}
+    to{transform:translate(-500px,-500px);}
+}
+
+.card{
+    width:360px;
+    padding:25px;
+    background:#111;
+    border-radius:25px;
+    text-align:center;
+    color:white;
+    box-shadow:0 0 40px #8b5cf6;
+    position:relative;
+    z-index:2;
+    animation:flotar 4s ease-in-out infinite;
+}
+
+@keyframes flotar{
+    0%{transform:translateY(0);}
+    50%{transform:translateY(-10px);}
+    100%{transform:translateY(0);}
+}
+
+#slider{
+    width:100%;
+    max-height:250px;
+    border-radius:20px;
+    object-fit:contain;
+    background:black;
+    margin-bottom:15px;
+}
+
+h1{
+    color:#c084ff;
+    text-shadow:0 0 15px #a855f7;
+}
+
+#contador{
+    font-weight:bold;
+    margin:10px 0;
+}
+
+button{
+    padding:10px 25px;
+    border:none;
+    border-radius:20px;
+    font-size:16px;
+    cursor:pointer;
+    margin:5px;
+    transition:0.3s;
+}
+
+#si{
+    background:#a855f7;
+    color:white;
+    box-shadow:0 0 20px #a855f7;
+}
+
+#si:hover{
+    transform:scale(1.1);
+    box-shadow:0 0 35px #d8b4fe;
+}
+
+#no{
+    background:#444;
+    color:white;
+}
+
+.corazon{
+    position:absolute;
+    color:#ff4df2;
+    font-size:20px;
+    animation:subir 4s linear infinite;
+}
+
+@keyframes subir{
+    from{transform:translateY(100vh);}
+    to{transform:translateY(-10vh);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <img id="slider" src="foto1.jpeg">
+
+    <h1>Para el amor de mi vida 💜</h1>
+
+    <p>Si pudiera elegir un lugar seguro, sería a tu lado.</p>
+    <p>Cuanto más tiempo estoy contigo más te amo.</p>
+
+    <div id="contador"></div>
+
+    <button id="si">Sí 💜</button>
+    <button id="no">No 😜</button>
+</div>
+
+<audio autoplay loop>
+    <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const fechaInicio = new Date("2023-10-14T00:00:00");
+
+function actualizarContador(){
+    const ahora = new Date();
+    const diferencia = ahora - fechaInicio;
+
+    const dias = Math.floor(diferencia / (1000*60*60*24));
+    const horas = Math.floor((diferencia / (1000*60*60)) % 24);
+    const minutos = Math.floor((diferencia / (1000*60)) % 60);
+    const segundos = Math.floor((diferencia / 1000) % 60);
+
+    document.getElementById("contador").innerHTML =
+        "Mi amor por ti comenzó hace:<br>" +
+        dias + " días " + horas + " horas " +
+        minutos + " minutos " + segundos + " segundos 💜";
+}
+
+setInterval(actualizarContador,1000);
+
+const imagenes = ["foto1.jpeg","foto2.jpeg","foto3.jpeg","foto4.jpeg"];
+let i = 0;
+
+setInterval(()=>{
+    i++;
+    if(i >= imagenes.length){ i = 0; }
+    document.getElementById("slider").src = imagenes[i];
+},3000);
+
+document.getElementById("si").onclick = function(){
+    alert("Sabía que dirías que sí 😍💜");
+    for(let i=0;i<30;i++){
+        let corazon = document.createElement("div");
+        corazon.className="corazon";
+        corazon.innerHTML="💜";
+        corazon.style.left=Math.random()*100+"%";
+        corazon.style.animationDuration=(Math.random()*3+2)+"s";
+        document.body.appendChild(corazon);
+        setTimeout(()=>corazon.remove(),4000);
+    }
+};
+
+document.getElementById("no").onmouseover = function(){
+    this.style.position="absolute";
+    this.style.top=Math.random()*80+"%";
+    this.style.left=Math.random()*80+"%";
+};
+</script>
+
+</body>
+</html>
