@@ -33,6 +33,16 @@ body::before{
     to{transform:translate(-500px,-500px);}
 }
 
+@keyframes fadeIn {
+from { opacity: 0; }
+to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+from { transform: scale(0.5); opacity: 0; }
+to { transform: scale(1); opacity: 1; }
+}
+
 .card{
     width:360px;
     padding:25px;
@@ -118,8 +128,8 @@ button{
 
     <h1>Para el amor de mi vida 💜</h1>
 
-    <p>Si pudiera elegir un lugar seguro, sería a tu lado.</p>
-    <p>Cuanto más tiempo estoy contigo más te amo.</p>
+    <p>Desde un principio lo supe, jamas lo dude.</p>
+    <p>Te dije que seria para siempre.</p>
 
     <div id="contador"></div>
 
@@ -128,7 +138,16 @@ button{
 </div>
 
 <audio autoplay loop>
-    <source src="musica.mp3" type="audio/mpeg">
+    <audio id="musica" loop>
+  <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+document.addEventListener("click", function() {
+  const audio = document.getElementById("musica");
+  audio.play();
+}, { once: true });
+</script>
 </audio>
 
 <script>
@@ -160,17 +179,35 @@ setInterval(()=>{
     document.getElementById("slider").src = imagenes[i];
 },3000);
 
-document.getElementById("si").onclick = function(){
-    alert("Sabía que dirías que sí 😍💜");
-    for(let i=0;i<30;i++){
-        let corazon = document.createElement("div");
-        corazon.className="corazon";
-        corazon.innerHTML="💜";
-        corazon.style.left=Math.random()*100+"%";
-        corazon.style.animationDuration=(Math.random()*3+2)+"s";
-        document.body.appendChild(corazon);
-        setTimeout(()=>corazon.remove(),4000);
-    }
+document.getElementById("si").onclick = function() {
+
+let pantalla = document.createElement("div");
+
+pantalla.style.position = "fixed";
+pantalla.style.top = "0";
+pantalla.style.left = "0";
+pantalla.style.width = "100%";
+pantalla.style.height = "100%";
+pantalla.style.background = "rgba(0,0,0,0.95)";
+pantalla.style.display = "flex";
+pantalla.style.flexDirection = "column";
+pantalla.style.justifyContent = "center";
+pantalla.style.alignItems = "center";
+pantalla.style.zIndex = "9999";
+pantalla.style.color = "white";
+pantalla.style.fontSize = "40px";
+pantalla.style.textAlign = "center";
+pantalla.style.animation = "fadeIn 1s ease";
+
+pantalla.innerHTML = `
+<div style="animation: zoomIn 1s ease;">
+💖 Sabía que dirías que sí 💖
+<br><br>
+✨ Te amo ✨
+</div>
+`;
+
+document.body.appendChild(pantalla);
 };
 
 document.getElementById("no").onmouseover = function(){
