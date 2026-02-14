@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Para mi amor</title>
 
 <style>
@@ -44,7 +45,8 @@ to { transform: scale(1); opacity: 1; }
 }
 
 .card{
-    width:360px;
+    width:90%;
+    max-width:380px;
     padding:25px;
     background:#111;
     border-radius:25px;
@@ -64,10 +66,9 @@ to { transform: scale(1); opacity: 1; }
 
 #slider{
     width:100%;
-    max-height:250px;
+    height:300px;
     border-radius:20px;
-    object-fit:contain;
-    background:black;
+    object-fit:cover;
     margin-bottom:15px;
 }
 
@@ -128,8 +129,8 @@ button{
 
     <h1>Para el amor de mi vida 💜</h1>
 
-    <p>Desde un principio lo supe, jamas lo dude.</p>
-    <p>Te dije que seria para siempre.</p>
+    <p>Desde un principio lo supe, jamás lo dudé.</p>
+    <p>Te dije que sería para siempre.</p>
 
     <div id="contador"></div>
 
@@ -137,20 +138,18 @@ button{
     <button id="no">No 😜</button>
 </div>
 
-<audio autoplay loop>
-    <audio id="musica" loop>
+<!-- AUDIO CORRECTO -->
+<audio id="musica" loop>
   <source src="musica.mp3" type="audio/mpeg">
 </audio>
 
 <script>
+// Música inicia al primer toque
 document.addEventListener("click", function() {
-  const audio = document.getElementById("musica");
-  audio.play();
+  document.getElementById("musica").play();
 }, { once: true });
-</script>
-</audio>
 
-<script>
+/* CONTADOR */
 const fechaInicio = new Date("2023-10-14T00:00:00");
 
 function actualizarContador(){
@@ -170,6 +169,7 @@ function actualizarContador(){
 
 setInterval(actualizarContador,1000);
 
+/* SLIDER */
 const imagenes = ["foto1.jpeg","foto2.jpeg","foto3.jpeg","foto4.jpeg"];
 let i = 0;
 
@@ -179,6 +179,7 @@ setInterval(()=>{
     document.getElementById("slider").src = imagenes[i];
 },3000);
 
+/* BOTÓN SI */
 document.getElementById("si").onclick = function() {
 
 let pantalla = document.createElement("div");
@@ -210,6 +211,7 @@ pantalla.innerHTML = `
 document.body.appendChild(pantalla);
 };
 
+/* BOTÓN NO */
 document.getElementById("no").onmouseover = function(){
     this.style.position="absolute";
     this.style.top=Math.random()*80+"%";
